@@ -1,0 +1,49 @@
+@startuml
+skinparam backgroundColor transparent
+skinparam defaultFontSize 16
+skinparam ArrowColor #8d0e1f
+skinparam rectangle {
+  BorderColor #a81326
+  BackgroundColor #ffffff
+}
+skinparam node {
+  BorderColor #a81326
+  BackgroundColor #fbeef0
+}
+skinparam database {
+  BorderColor #a81326
+}
+left to right direction
+
+actor "CI & developers\n(bottlerocket, containerd,\nnpm, maven, pip)" as users
+
+node "AWS EKS" {
+  rectangle "Gateway\n(HTTPRoutes + filters)" as gw
+  rectangle "Pulp (pulp-operator)\nAPI / content (HPA) / worker" as pulp
+  rectangle "CronJobs\ncache cleanup, NVD sync" as cron
+  rectangle "Velero" as velero
+}
+database "S3\nartifacts" as s3
+database "S3\nbackups" as s3b
+rectangle "Harbor\ncustom Pulp image" as harbor
+rectangle "Terraform\nkustomize module +\nterraform-provider-pulp" as tf
+
+cloud "Upstreams" as up {
+  rectangle "docker.io / quay.io / ghcr.io / public.ecr.aws / gcr.io / ..." as oci
+  rectangle "npmjs" as npm
+  rectangle "Maven Central / Gradle / JitPack" as mvn
+  rectangle "PyPI" as pypi
+}
+
+users --> gw
+gw --> pulp
+pulp --> s3
+pulp --> oci
+pulp --> npm
+pulp --> mvn
+pulp --> pypi
+cron --> pulp
+velero --> s3b : namespace backup
+harbor ..> pulp : image
+tf ..> pulp : CR patches,\nremotes / repos /\ndistributions
+@enduml

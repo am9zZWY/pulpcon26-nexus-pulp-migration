@@ -1,11 +1,11 @@
 {
-  "name": "tcd24-eks-gitlab-vault-slides",
+  "name": "pulpcon26-nexus-pulp-migration",
   "version": "1.0.0",
   "description": "",
   "main": "reveal.js",
   "scripts": {
-    "preview": "node preview.js presentation.adoc",
-    "build": "npx asciidoctor-revealjs presentation.adoc -o docs/index.html; cp -r images/ docs/images/; cp -r node_modules/ docs/node_modules/; cp custom.css docs/custom.css"
+    "preview": "bun preview.js presentation.adoc",
+    "build": "bunx asciidoctor-revealjs presentation.adoc -o docs/index.html; cp -r images/ docs/images/; cp -r node_modules/ docs/node_modules/; cp custom.css docs/custom.css"
   },
   "keywords": [],
   "author": "",

@@ -1,0 +1,42 @@
+@startuml
+skinparam backgroundColor transparent
+skinparam defaultFontSize 18
+skinparam ArrowColor #8d0e1f
+skinparam rectangle {
+  BorderColor #a81326
+  BackgroundColor #ffffff
+}
+skinparam node {
+  BorderColor #a81326
+  BackgroundColor #fbeef0
+}
+skinparam cloud {
+  BorderColor #666666
+}
+left to right direction
+
+actor "CI & developers" as users
+node "Kubernetes" {
+  rectangle "Sonatype Nexus OSS" as nexus
+}
+cloud "OCI" as oci {
+  rectangle "docker.io" as dockerio
+  rectangle "public.ecr.aws" as ecr
+}
+cloud "npm" as npm {
+  rectangle "registry.npmjs.org" as npmjs
+}
+cloud "Maven (one grouped endpoint)" as maven {
+  rectangle "Maven Central" as central
+  rectangle "Gradle Plugins" as gradle
+  rectangle "JitPack" as jitpack
+}
+
+users --> nexus
+nexus --> dockerio
+nexus --> ecr
+nexus --> npmjs
+nexus --> central
+nexus --> gradle
+nexus --> jitpack
+@enduml

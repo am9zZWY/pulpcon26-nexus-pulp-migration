@@ -28,7 +28,30 @@ body.reveal-viewport {
     box-shadow: none;
 }
 
-section.inverted {
+.reveal section.inverted h2 {
+    color: #a81326;
+    font-size: 2.2em;
+}
+.reveal section.inverted h2::after {
+    content: "";
+    display: block;
+    width: 120px;
+    height: 6px;
+    margin: 0.4em auto 0;
     background: #a81326;
-    color: #fff
+}
+.big {
+    font-size: 2em;
+    font-weight: bold;
+    color: #a81326;
+}
+
+.logos {
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+}
+.logos img {
+    vertical-align: middle;
+    margin: 0 0.5em !important;
 }
